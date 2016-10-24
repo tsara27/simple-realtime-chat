@@ -1,0 +1,34 @@
+<% if @users.count.zero? %>
+  <div class="row">
+    <div class="column">
+      There's no users that you can chat with.
+    </div>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="column">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.name %></td>
+              <td>
+                <%=
+                  link_to_if user_signed_in?, 'Chat Now', '#' do
+                    link_to 'Chat Now', new_user_session_path
+                  end
+                %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>

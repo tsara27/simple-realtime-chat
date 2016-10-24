@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="column column-15">
+    <%= link_to 'Simple Realtime Chat', root_path %>
+  </div>
+  <div class="column column-15 column-offset-70">
+    <% if user_signed_in? %>
+      <%= link_to 'Sign out', destroy_user_session_path, class: 'button button-outline float-right', method: :delete %>
+    <% else %>
+      <%= link_to 'Sign in', new_user_session_path, class: 'button float-right' %>
+    <% end %>
+  </div>
+</div>
