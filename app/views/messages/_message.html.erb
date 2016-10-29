@@ -1,0 +1,11 @@
+<div class="row <%= 'gray-background' unless message.sender == current_user %> message-container">
+  <div class="column column-10">
+    <small><%= message.sender == current_user ? 'You' : message.sender.name %></small>
+  </div>
+  <div class="column column-75">
+    <small><%= message.content %></small>
+  </div>
+  <div class="column column-15 text-right">
+    <small><%= message.created_at.to_formatted_s(:short) %></small>
+  </div>
+</div>

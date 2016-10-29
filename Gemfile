@@ -8,9 +8,11 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'devise'
+gem 'pusher'
 
 group :development, :test do
-  gem 'byebug', platform: :mri
+  gem 'pry'
+  gem 'rb-readline'
 end
 
 group :development do

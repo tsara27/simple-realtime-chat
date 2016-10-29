@@ -1,11 +1,11 @@
 <% if @users.count.zero? %>
-  <div class="row">
+  <div class="row margin-top-20">
     <div class="column">
       There's no users that you can chat with.
     </div>
   </div>
 <% else %>
-  <div class="row">
+  <div class="row margin-top-20">
     <div class="column">
       <table>
         <thead>
@@ -20,7 +20,7 @@
               <td><%= user.name %></td>
               <td>
                 <%=
-                  link_to_if user_signed_in?, 'Chat Now', '#' do
+                  link_to_if user_signed_in?, 'Chat Now', messages_path(recipient: user.id) do
                     link_to 'Chat Now', new_user_session_path
                   end
                 %>

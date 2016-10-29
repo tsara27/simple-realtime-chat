@@ -1,0 +1,11 @@
+<div class="row <%= 'gray-background' unless data.sender == current_user.name %> message-container">
+  <div class="column column-10">
+    <strong><%= data.sender == current_user.name ? 'You' : sender %></strong>
+  </div>
+  <div class="column column-75">
+    <small><%= data.message %></small>
+  </div>
+  <div class="column column-15 text-right">
+    <small><%= data.timestamp %></small>
+  </div>
+</div>

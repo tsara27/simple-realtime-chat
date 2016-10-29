@@ -1,0 +1,61 @@
+<div class="container margin-top-20" id="messages-container">
+  <% if @messages.count.nil? %>
+    <div class="row margin-top-20">
+      <div class="column">No messages. Send your first message!</div>
+    </div>
+  <% else %>
+    <% @messages.each do |message| %>
+      <%= render 'message', message: message %>
+    <% end %>
+  <% end %>
+</div>
+<div class="row margin-top-20">
+  <%= form_for @message, html: { class: 'column', id: 'message-form' }, remote: true do |f| %>
+    <%= f.hidden_field :recipient_id, value: params[:recipient] %>
+    <%= hidden_field_tag :channel, channel_name(@messages.first) %>
+    <%= f.text_area :content, placeholder: 'Enter your text message here' %>
+    <%= f.submit 'Send' %>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  var pusher = new Pusher('357cff67e138317ed474', {
+    cluster: 'ap1',
+    authEndpoint: '/pusher/auth',
+    auth: {
+      headers: {
+        'X-CSRF-Token': "<%= form_authenticity_token %>"
+      }
+    },
+    encrypted: true
+  });
+
+  var channel = pusher.subscribe("<%= channel_name(@messages.first) %>");
+  channel.bind('message', function(data) {
+    if(data.sender_id == "<%= current_user.id %>") {
+      $('#messages-container').append('<div class="row message-container">' +
+        '<div class="column column-10">' +
+          '<small>You</small>' +
+        '</div>' +
+        '<div class="column column-75">' +
+          '<small>' + data.content + '</small>' +
+        '</div>' +
+        '<div class="column column-15 text-right">' +
+          '<small>' + data.timestamp + '</small>' +
+        '</div>' +
+      '</div>');
+    } else {
+      $('#messages-container').append('<div class="row gray-background message-container">' +
+        '<div class="column column-10">' +
+          '<small>' + data.sender + '</small>' +
+        '</div>' +
+        '<div class="column column-75">' +
+          '<small>' + data.content + '</small>' +
+        '</div>' +
+        '<div class="column column-15 text-right">' +
+          '<small>' + data.timestamp + '</small>' +
+        '</div>' +
+      '</div>');
+    }
+  });
+</script>
