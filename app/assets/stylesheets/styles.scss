@@ -1,3 +1,36 @@
 .navigation {
+  padding: 20px 0;
+}
+
+.margin-top-20 {
   margin-top: 20px;
+}
+
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.gray-background {
+  background: #f9f9f9;
+}
+
+.message-container {
+  padding: 10px 0;
+  border-bottom: #e0e0e0 solid 1px;
+  &:last-child {
+    border-bottom: none;
+  }
+  .column:first-child {
+    small {
+      font-weight: bold;
+    }
+  }
+}
+
+#messages-container {
+  border: 1px solid #bfbfbf;
 }
